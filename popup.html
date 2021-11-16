@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                font-family: 'poppins', sans-serif;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+            .hero{
+                background: #fff;
+                min-height: 100vh;
+                width: 100%;
+                color: #000;
+                position: relative;
+            }
+            .hero table{
+                margin: 0;
+            	border-color: #000;
+	            border-collapse: separate;
+	            border-radius: 5px;
+	            text-align: left;
+	            background-color: #dedede;
+                height: 100%;
+                width: 100%;
+            }
+            .hero table th{
+                border-bottom: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            .hero table tr img{
+                height: 25px;
+                width: 25px;
+            }
+            .hero table th:last-child{
+	            border-right: 0;
+            }
+            .hero table td, tr{
+                padding: 5px 0;
+                border-bottom: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            .hero table td:first-child, tr:first-child{
+                padding-right: 5px;
+            }
+            .hero table td:last-child, tr:last-child{
+	            border-right: 0px;
+            }
+        </style>
+    </head>
+    <body onload="putValues()">
+        <div class="hero">
+            <table>
+                <tr>
+                    <th></th>
+                    <th>This product</th>
+                    <th>AVG product</th>
+                    <th>Compared</th>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="img\CO2 Footprint Color.png" alt="">
+                    </td>
+                    <td id="co2-this"></td>
+                    <td id="co2-avg"></td>
+                    <td id="co2-pct"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="img\Transport Color.png" alt="">
+                    </td>
+                    <td id="transport-this"></td>
+                    <td id="transport-avg"></td>
+                    <td id="transport-pct"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="img\Water Drop Color.png" alt="">
+                    </td>
+                    <td id="water-this"></td>
+                    <td id="water-avg"></td>
+                    <td id="water-pct"></td>
+                </tr>
+            </table>
+        </div>
+        <script>
+            // COMPONENT 2
+            var product_co2_literal = 444; var product_transport_literal = 555; var product_water_literal = 666;
+            var avg_co2_literal = 777; var avg_transport_literal = 888; var avg_water_literal = 999;
+
+            function putValues(){
+                changeDesc('co2-this', product_co2_literal); changeDesc('transport-this', product_transport_literal); changeDesc('water-this', product_water_literal);
+                changeDesc('co2-avg', avg_co2_literal); changeDesc('transport-avg', avg_transport_literal); changeDesc('water-avg', avg_water_literal);
+                changeDesc('co2-pct', Math.round(product_co2_literal/avg_co2_literal*100) +'%'); 
+                changeDesc('transport-pct', Math.round(product_transport_literal/avg_transport_literal*100) + '%'); 
+                changeDesc('water-pct', Math.round(product_water_literal/avg_water_literal*100) + '%');
+            }
+
+            function changeDesc(elem, newText){
+                document.getElementById(elem).innerText = newText;
+            }
+
+        </script>
+    </body>
+</html>

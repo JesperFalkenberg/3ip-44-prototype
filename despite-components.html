@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            :root{
+                --co2Len: 50%;
+                --transLen: 50%;
+                --waterLen: 50%;
+            }
+            *{
+                margin: 0;
+                padding: 0;
+                font-family: 'poppins', sans-serif;
+                box-sizing: border-box;
+            }
+            .hero{
+                background: #fff;
+                min-height: 100vh;
+                width: 100%;
+                color: #000;
+                padding-top: 5%;
+                position: relative;
+            }
+            .component-1{
+                width: 50%;
+                float: left;
+            }
+            .component-1 h1{
+                margin: 0 10%;
+            }
+            .component-1 .journey .icons div{
+                display: inline-block;
+                height: 50px;
+                width: 50px;                
+                margin: 20px;
+                margin-top: 30px;
+            }
+            .component-1 .journey .icons div:first-child{
+                margin-left: 75px;
+                margin-right: 0;
+            }
+            .component-1 .journey .icons div img{
+                height: 100%;
+                width: auto;
+            }
+            .component-1 .journey .text{
+                margin: 0 10%;
+                height: auto;
+                width: 100%;
+            }
+            .component-1 .journey .text h2{
+                margin: 0;
+                
+            }
+            .component-1 .journey .text p{
+                margin: 0;
+            }
+            .component-1 .journey .sliders .outer{
+                background-color: #dedede;
+                border-radius: 25.5px;
+                margin-bottom: 5px;
+                margin-left: 5%;
+                height: 25px;
+                width: 80%;
+                align-content: center;
+            }
+            .component-1 .journey .sliders .outer .co2-inner{
+                background-color: #6d7132;   
+                border-radius: 25.5px;
+                height: 70%;
+                -ms-transform: translateY(20%);
+                transform: translateY(20%);
+                margin-left: 3px;
+                width: var(--co2Len);
+            }
+            .component-1 .journey .sliders .outer .transport-inner{
+                background-color: #b6511d;   
+                border-radius: 25.5px;
+                height: 70%;
+                -ms-transform: translateY(20%);
+                transform: translateY(20%);
+                margin-left: 3px;
+                width: var(--transLen);
+            }
+            .component-1 .journey .sliders .outer .water-inner{
+                background-color: #7ba3b3;
+                border-radius: 25.5px;
+                height: 70%;
+                -ms-transform: translateY(20%);
+                transform: translateY(20%);
+                margin-left: 3px;
+                width: var(--waterLen);
+            }
+            .component-1 .journey .sliders .outer .co2-inner p, .transport-inner p, .water-inner p{
+                color:#dedede;
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+            }
+            
+            .component-2{
+                width: 50%;
+                float: right;
+            }
+            .component-2 h1{
+                margin: 0 10%;
+            }
+            .component-2 .sliders{
+                margin-left: 10%;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="hero">
+
+            <div class="component-1">
+                <h1>
+                    Component 1:<br>Journey of individual product, each step is clickable
+                </h1>
+                <div class="journey">
+                    <div class="icons">
+                        <div onclick="cssVar('--co2Len', bottle_co2_pct) && cssVar('--transLen', bottle_tranport_pct) && cssVar('--waterLen', bottle_water_pct) && changeDesc('journey-header',bottle_header) && changeDesc('journey-desc',bottle_desc)">
+                            <img src="img\Water Bottle.png" alt="Plastic Bottle">
+                        </div>
+                        <div onclick="cssVar('--co2Len', granulate_co2_pct) && cssVar('--transLen', granulate_tranport_pct) && cssVar('--waterLen', granulate_water_pct)">
+                            <img src="img\Micro Plastic.png" alt="Plastic Granulate">
+                        </div>
+                        <div onclick="cssVar('--co2Len', factory_co2_pct) && cssVar('--transLen', factory_tranport_pct) && cssVar('--waterLen', factory_water_pct)">
+                            <img src="img\Fabrik.png" alt="Factory">
+                        </div>
+                        <div onclick="cssVar('--co2Len', shirt_co2_pct) && cssVar('--transLen', shirt_tranport_pct) && cssVar('--waterLen', shirt_water_pct)">
+                            <img src="img\T-shirt.png" alt="T-shirt">
+                        </div>
+                        <div onclick="cssVar('--co2Len', train_co2_pct) && cssVar('--transLen', train_tranport_pct) && cssVar('--waterLen', train_water_pct)">
+                            <img src="img\Train.png" alt="Interstate Transport">
+                        </div>
+                        <div onclick="cssVar('--co2Len', truck_co2_pct) && cssVar('--transLen', truck_tranport_pct) && cssVar('--waterLen', truck-water_pct)">
+                            <img src="img\Transport.png" alt="Transport">
+                        </div>
+                    </div>
+                    <div class="text">
+                        <h2 id="journey-header"></h2>
+                        <p id="journey-desc"></p>
+                    </div>
+                    <div class="sliders">
+                        <div class="outer">
+                            <div class="co2-inner"><p>CO2</script></p></div>
+                        </div>
+                        <div class="outer">
+                            <div class="transport-inner"><p>Transport</p></div>
+                        </div>
+                        <div class="outer">
+                            <div class="water-inner"><p>Water</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="component-2">
+                <h1>Component 2:<br>Overview of total consumption, with "read more" pop-up explaining calculations</h1>
+                <div class="sliders">
+
+                    <a href="" onclick="openPopup('popup.html')">Pop-up</a>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- here is the fun stuff :) -->
+        <script>
+
+            // COMPONENT 1
+            var bottle_co2_pct = '12%'; var bottle_tranport_pct = '12%'; var bottle_water_pct = '12%';
+            var granulate_co2_pct = '15%'; var granulate_tranport_pct = '15%'; var granulate_water_pct = '20%';
+            var factory_co2_pct = '20%'; var factory_tranport_pct = '20%'; var factory_water_pct = '30%';
+            var shirt_co2_pct = '30%'; var shirt_tranport_pct = '25%'; var shirt_water_pct = '60%';
+            var train_co2_pct = '40%'; var train_tranport_pct = '45%'; var train_water_pct = '60%';
+            var truck_co2_pct = '75%'; var truck_tranport_pct = '70%'; var truck_water_pct = '60%';
+
+            var bottle_header = "Brugt flaske";
+            var bottle_desc = "T-shirten er produceret af 115 gram bomuldsrester (60%) og 3 plastikflasker (40%). Hvert år produceres der milliarder af plastikflasker, hvor af mange af disse ender i verdenshavene. Flaskerne vi bruger til t-shirten indsamler vi fra havene i Asien - på denne måde bidrager vi til at rense havene for plastik, samtidig med at vi kan få produceret vores bløde t-shirts. Efter flaskerne er blevet indsamlet fra havet, fragtes de med tog til vores fabrik i Shanghai, Kina.\nDenne del af processen udleder 0,3 kg Co2, som primært udledes når materialerne transporteres 3.000 km.";   
+            var granulate_header = "Plastikgranulat og bomuldsrester";
+            var granulate_desc = "På vores fabrik I Shanghai nedbrydes flaskerne til plastikgranulat inden det omdannes til garn. Udover genbrugspolyester består t-shirten af kasserede bomuldsprodukter, som også omdannes til garn. Disse bomuldsrester får vi leveret fra vores leverandør i Beijing. Der arbejdes på at flytte produktionen til Portugal, for at minimere transporten.\nDenne del af processen udleder 0,4 kg Co2, materialerne transporteres 1000 km og bruger 1050 L vand.";
+            var factory_header = "Produktion af t-shirt";
+            var factory_desc = "Når plastikgranulatet er blevet omdannet til garn kan t-shirten produceres. De to materialer vil I denne del af processen blive vævet sammen til den Despite t-shirt du kender.\nDenne del af processen udleder 0,3 kg Co2, og bruger 5950 L vand.";
+            var shirt_header = "Pakning af t-shirt";
+            var shirt_desc = "Der sættes hang-tags på t-shirten, som er lavet af genbrugsplast og genbrugspapir. Når t-shirten har fået tags på, pakkes den i gennemsigtige plastikposer, hvilket er nødvendigt for at beskytte tøjet. De hang-tags der sættes på tøjet, bliver transporteret fra en virksomhed, der ligger 200 km væk fra tøjfabrikken.\nProduktionen af produktet, samt transporten udleder 0,2 kg Co2.";
+            var train_header = "Transport til Danmark";
+            var train_desc = "Når tøjet er pakket, fragtes det i lastbil til en station i Shanghai, hvor resten af turen foregår med tog til Danmark. Når tøjet ankommer til Danmark, bliver det fragtet med lastbil til vores lager i København. Tøjet ender derfor med at blive transporteret 7300 km.\nDenne del af processen udleder 0,8 kg Co2.";
+            var truck_header = "Levering til dig";
+            var truck_desc = "Når du bestiller t-shirten pakkes den i en forsendelsespose, som er lavet af det bedste slags genbrugspapir. Ved at benytte forsendelsesposer af genbrugspapir sparer man miljøet for både fældning af skov, men også for den ressourcekrævende produktion af ny papirmasse, hvor man opløser træmassen i syre. Vi leder hele tiden efter metoder til at kunne levere vores produkter bedre og mere bæredygtigt.\nI gennemsnit bliver t-shirten transporteret 200 km hjem til dig.\nDenne del af processen udleder 0,1 kg Co2. ";
+
+            function changeDesc(elem, newText){
+                document.getElementById(elem).innerText = newText;
+            }
+
+            function openPopup(url){
+                window.focus(open(url,'About the product','height=135,width=400'));
+            }
+
+            function cssVar(name,value){
+                if(name[0]!='-') name = '--'+name //allow passing with or without --
+                    if(value) document.documentElement.style.setProperty(name, value)
+                        return getComputedStyle(document.documentElement).getPropertyValue(name);
+            }
+        </script>
+    </body>
+</html>
