@@ -93,9 +93,9 @@
             function putValues(){
                 changeDesc('co2-this', product_co2_literal); changeDesc('transport-this', product_transport_literal); changeDesc('water-this', product_water_literal);
                 changeDesc('co2-avg', avg_co2_literal); changeDesc('transport-avg', avg_transport_literal); changeDesc('water-avg', avg_water_literal);
-                changeDesc('co2-pct', Math.round(product_co2_literal/avg_co2_literal*100) +'%'); 
-                changeDesc('transport-pct', Math.round(product_transport_literal/avg_transport_literal*100) + '%'); 
-                changeDesc('water-pct', Math.round(product_water_literal/avg_water_literal*100) + '%');
+                changeDesc('co2-pct', Math.round(product_co2_literal/avg_co2_literal*1000)/10 +'%'); 
+                changeDesc('transport-pct', Math.round(product_transport_literal/avg_transport_literal*1000)/10 + '%'); 
+                changeDesc('water-pct', Math.round(product_water_literal/avg_water_literal*1000)/10 + '%');
             }
 
             function changeDesc(elem, newText){
