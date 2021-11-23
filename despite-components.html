@@ -117,7 +117,7 @@
             
         </style>
     </head>
-    <body>
+    <body onload="con() && fetchEverything() && startValues()">
         <div class="hero">
 
             <div class="component-1">
@@ -126,22 +126,22 @@
                 </h1>
                 <div class="journey">
                     <div class="icons">
-                        <div onclick="cssVar('--co2Len', bottle_co2_pct) && cssVar('--transLen', bottle_tranport_pct) && cssVar('--waterLen', bottle_water_pct) && changeDesc('journey-header',bottle_header) && changeDesc('journey-desc',bottle_desc)">
+                        <div onclick="cssVar('--co2Len', `${CO2[0]}`) && cssVar('--transLen', `${transport[0]}`) && cssVar('--waterLen', `${water[0]}`) && changeDesc('journey-header', `${headers[0]}`) && changeDesc('journey-desc', `${descs[0]}`)">
                             <img src="img\Water Bottle.png" alt="Plastic Bottle">
                         </div>
-                        <div onclick="cssVar('--co2Len', granulate_co2_pct) && cssVar('--transLen', granulate_tranport_pct) && cssVar('--waterLen', granulate_water_pct)">
+                        <div onclick="cssVar('--co2Len', `${CO2[1]}`) && cssVar('--transLen', `${transport[1]}`) && cssVar('--waterLen', `${water[1]}`) && changeDesc('journey-header', `${headers[1]}`) && changeDesc('journey-desc', `${descs[1]}`)">
                             <img src="img\Micro Plastic.png" alt="Plastic Granulate">
                         </div>
-                        <div onclick="cssVar('--co2Len', factory_co2_pct) && cssVar('--transLen', factory_tranport_pct) && cssVar('--waterLen', factory_water_pct)">
+                        <div onclick="cssVar('--co2Len', `${CO2[2]}`) && cssVar('--transLen', `${transport[2]}`) && cssVar('--waterLen', `${water[2]}`) && changeDesc('journey-header', `${headers[2]}`) && changeDesc('journey-desc', `${descs[2]}`)">
                             <img src="img\Fabrik.png" alt="Factory">
                         </div>
-                        <div onclick="cssVar('--co2Len', shirt_co2_pct) && cssVar('--transLen', shirt_tranport_pct) && cssVar('--waterLen', shirt_water_pct)">
+                        <div onclick="cssVar('--co2Len', `${CO2[3]}`) && cssVar('--transLen', `${transport[3]}`) && cssVar('--waterLen', `${water[3]}`) && changeDesc('journey-header', `${headers[3]}`) && changeDesc('journey-desc', `${descs[3]}`)">
                             <img src="img\T-shirt.png" alt="T-shirt">
                         </div>
-                        <div onclick="cssVar('--co2Len', train_co2_pct) && cssVar('--transLen', train_tranport_pct) && cssVar('--waterLen', train_water_pct)">
+                        <div onclick="cssVar('--co2Len', `${CO2[4]}`) && cssVar('--transLen', `${transport[4]}`) && cssVar('--waterLen', `${water[4]}`) && changeDesc('journey-header', `${headers[4]}`) && changeDesc('journey-desc', `${descs[4]}`)">
                             <img src="img\Train.png" alt="Interstate Transport">
                         </div>
-                        <div onclick="cssVar('--co2Len', truck_co2_pct) && cssVar('--transLen', truck_tranport_pct) && cssVar('--waterLen', truck-water_pct)">
+                        <div onclick="cssVar('--co2Len', `${CO2[5]}`) && cssVar('--transLen', `${transport[5]}`) && cssVar('--waterLen', `${water[5]}`) && changeDesc('journey-header', `${headers[5]}`) && changeDesc('journey-desc', `${descs[5]}`)">
                             <img src="img\Transport.png" alt="Transport">
                         </div>
                     </div>
@@ -166,35 +166,102 @@
                 <h1>Component 2:<br>Overview of total consumption, with "read more" pop-up explaining calculations</h1>
                 <div class="sliders">
 
-                    <a href="" onclick="openPopup('popup.html')">Pop-up</a>
+                    <a href="" onclick="openPopup('popup.html')">See calculations</a>
                 </div>
                 
             </div>
         </div>
 
-        <!-- here is the fun stuff :) -->
+        <!-- fun stuff :) -->
         <script>
+            function con(){
+                // FETCHING DATA
+                const mysql = require('mysql');
+                const connection = mysql.createConnection({
+                    host: 'localhost',
+                    user: 'root',
+                    password: '1234',
+                    database: 'despiteProducts'
+                });
+                connection.connect((err) => {
+                    if (err) {
+                        console.log('Error connectin to database.');
+                        return;
+                    };
+                    console.log('Connected!');
+                });
+                connection.end((err) => {
+                    // graceful teardown
+                });
+            }
 
-            // COMPONENT 1
-            var bottle_co2_pct = '12%'; var bottle_tranport_pct = '12%'; var bottle_water_pct = '12%';
-            var granulate_co2_pct = '15%'; var granulate_tranport_pct = '15%'; var granulate_water_pct = '20%';
-            var factory_co2_pct = '20%'; var factory_tranport_pct = '20%'; var factory_water_pct = '30%';
-            var shirt_co2_pct = '30%'; var shirt_tranport_pct = '25%'; var shirt_water_pct = '60%';
-            var train_co2_pct = '40%'; var train_tranport_pct = '45%'; var train_water_pct = '60%';
-            var truck_co2_pct = '75%'; var truck_tranport_pct = '70%'; var truck_water_pct = '60%';
+            // product related info
+            var productName = 'Kortærmet T-shirt | Black/Royal Blue';
+            var productType, productId;
+            var avgCO2, avgTransport, avgWater;
+            var CO2 = [0,0,0,0,0,0];
+            var transport = [0,0,0,0,0,0];
+            var water = [0,0,0,0,0,0];
+            var headers = ['','','','','',''];
+            var descs = ['','','','','',''];
 
-            var bottle_header = "Brugt flaske";
-            var bottle_desc = "T-shirten er produceret af 115 gram bomuldsrester (60%) og 3 plastikflasker (40%). Hvert år produceres der milliarder af plastikflasker, hvor af mange af disse ender i verdenshavene. Flaskerne vi bruger til t-shirten indsamler vi fra havene i Asien - på denne måde bidrager vi til at rense havene for plastik, samtidig med at vi kan få produceret vores bløde t-shirts. Efter flaskerne er blevet indsamlet fra havet, fragtes de med tog til vores fabrik i Shanghai, Kina.\nDenne del af processen udleder 0,3 kg Co2, som primært udledes når materialerne transporteres 3.000 km.";   
-            var granulate_header = "Plastikgranulat og bomuldsrester";
-            var granulate_desc = "På vores fabrik I Shanghai nedbrydes flaskerne til plastikgranulat inden det omdannes til garn. Udover genbrugspolyester består t-shirten af kasserede bomuldsprodukter, som også omdannes til garn. Disse bomuldsrester får vi leveret fra vores leverandør i Beijing. Der arbejdes på at flytte produktionen til Portugal, for at minimere transporten.\nDenne del af processen udleder 0,4 kg Co2, materialerne transporteres 1000 km og bruger 1050 L vand.";
-            var factory_header = "Produktion af t-shirt";
-            var factory_desc = "Når plastikgranulatet er blevet omdannet til garn kan t-shirten produceres. De to materialer vil I denne del af processen blive vævet sammen til den Despite t-shirt du kender.\nDenne del af processen udleder 0,3 kg Co2, og bruger 5950 L vand.";
-            var shirt_header = "Pakning af t-shirt";
-            var shirt_desc = "Der sættes hang-tags på t-shirten, som er lavet af genbrugsplast og genbrugspapir. Når t-shirten har fået tags på, pakkes den i gennemsigtige plastikposer, hvilket er nødvendigt for at beskytte tøjet. De hang-tags der sættes på tøjet, bliver transporteret fra en virksomhed, der ligger 200 km væk fra tøjfabrikken.\nProduktionen af produktet, samt transporten udleder 0,2 kg Co2.";
-            var train_header = "Transport til Danmark";
-            var train_desc = "Når tøjet er pakket, fragtes det i lastbil til en station i Shanghai, hvor resten af turen foregår med tog til Danmark. Når tøjet ankommer til Danmark, bliver det fragtet med lastbil til vores lager i København. Tøjet ender derfor med at blive transporteret 7300 km.\nDenne del af processen udleder 0,8 kg Co2.";
-            var truck_header = "Levering til dig";
-            var truck_desc = "Når du bestiller t-shirten pakkes den i en forsendelsespose, som er lavet af det bedste slags genbrugspapir. Ved at benytte forsendelsesposer af genbrugspapir sparer man miljøet for både fældning af skov, men også for den ressourcekrævende produktion af ny papirmasse, hvor man opløser træmassen i syre. Vi leder hele tiden efter metoder til at kunne levere vores produkter bedre og mere bæredygtigt.\nI gennemsnit bliver t-shirten transporteret 200 km hjem til dig.\nDenne del af processen udleder 0,1 kg Co2. ";
+            // get product data and calc pcts
+            function fetchEverything(){
+                // product and type
+                connection.query(`SELECT * FROM products WHERE name = \'${productName}\'`, (err, rows) => {
+                    if(err) throw err;
+                    rows.forEach((r) => {
+                        productType = rows.productType;
+                        productId = rows.id;
+                    });
+                });
+                // avg vals for product type
+                connection.query(`SELECT * FROM averages WHERE productType =\'${productType}\'`, (err, rows) =>{
+                    avgCO2 = rows.CO2;
+                    avgTransport = rows.transport;
+                    avgWater = rows.water;
+                });
+                // step vals
+                for (var i = 0; i < 6; i++) {
+                    connection.query(`SELECT * FROM stepValues WHERE productId = \'${productId}\' AND stepNum = \'${i+1}\'`, (err, rows) =>{
+                        CO2[i] = rows.CO2;
+                        transport[i] = rows.transport;
+                        water[i] = rows.water;
+                    });
+                }
+                /// calcs
+                // sum steps
+                for(i = 0; i < 6; i++){
+                    for(j = 0; j < i; j++){
+                        CO2[i] += CO2[j];
+                        transport[i] += transport[j];
+                        water[i] += transport[j];
+                    }
+                }
+                // calc pct
+                for(i = 0; i < 6; i++){
+                    CO2[i] = CO2[i] * 100 / avgCO2;
+                    transport[i] = transport[i] * 100 / avgTransport;
+                    water[i] = water[i] * 100 / avgWater;
+                }
+                
+                // step descs
+                for (var i = 0; i < 6; i++) {
+                    connection.query(`SELECT * FROM stepDescriptions WHERE productId = \'${productId}\' AND stepNum = \'${i+1}\'`, (err, rows) =>{
+                        headers[i] = rows.header;
+                        descs[i] = rows.descr;
+                    });
+                }
+            }
+
+            // start everything at last step
+            function startValues(){
+                cssVar('--co2Len', `${CO2[5]}`)
+                cssVar('--transLen', `${transport[5]}`)
+                cssVar('--waterLen', `${water[5]}`)
+                changeDesc('journey-header', `${headers[5]}`)
+                changeDesc('journey-desc', `${descs[5]}`)
+            }
 
             function changeDesc(elem, newText){
                 document.getElementById(elem).innerText = newText;
