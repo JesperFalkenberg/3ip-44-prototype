@@ -19,19 +19,15 @@ export class ClothingRepo{
         return this.INSTANCE;
     }
 
-    getAllInfo(){
-        return [this.getAvgList(), this.getProductList, this.getStepList];
-    }
-
-    getAvgList(){
+    getAvgList(): Array<Avg>{
         return avgList;
     }
 
-    getProductList(){
+    getProductList(): Array<Product>{
         return productList;
     }
 
-    getStepList(){
+    getStepList(): Array<Step>{
         return stepList;
     }
 }
@@ -40,13 +36,19 @@ export class ClothingRepo{
 const avgList: Array<Avg> = [
     new Avg(
         'tshirt', 
-        [
-            new Impact([
-                4.07,
-                32000,
-                15000,
-            ]),
-        ]
+        new Impact([
+            4.07,
+            32000,
+            15000,
+        ]),
+    ),
+    new Avg(
+        'jeans',
+        new Impact([
+            5.05,
+            32000,
+            19500,
+        ]),
     ),
 ];
 

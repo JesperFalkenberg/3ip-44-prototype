@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import { ClothingRepo } from './clothingrepo';
+import {ClothingRepo} from './clothingRepo';
 
 export class ClothingController{
     private static INSTANCE: ClothingController;
@@ -16,8 +16,18 @@ export class ClothingController{
         return this.INSTANCE;
     }
 
-    async getAllInfo(req: Request, res: Response){
-        const allInfo = await this.clothingRepo.getAllInfo();
+    async getAvgList(req: Request, res: Response){
+        const allInfo = await this.clothingRepo.getAvgList();
+        return res.send(JSON.stringify((allInfo)));
+    }
+
+    async getProductList(req: Request, res: Response){
+        const allInfo = await this.clothingRepo.getProductList();
+        return res.send(JSON.stringify((allInfo)));
+    }
+
+    async getStepList(req: Request, res: Response){
+        const allInfo = await this.clothingRepo.getStepList();
         return res.send(JSON.stringify((allInfo)));
     }
 }

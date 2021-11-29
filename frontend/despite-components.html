@@ -6,6 +6,9 @@
                 --co2Len: 50%;
                 --transLen: 50%;
                 --waterLen: 50%;
+                --co2Len2: 50%;
+                --transLen2: 50%;
+                --waterLen2: 505;
             }
             *{
                 margin: 0;
@@ -21,12 +24,14 @@
                 padding-top: 5%;
                 position: relative;
             }
+
             .component-1{
                 width: 50%;
                 float: left;
             }
             .component-1 h1{
                 margin: 0 10%;
+                margin-bottom: 10px;
             }
             .component-1 .journey .icons div{
                 display: inline-block;
@@ -50,10 +55,12 @@
             }
             .component-1 .journey .text h2{
                 margin: 0;
+                width: 70%
                 
             }
             .component-1 .journey .text p{
                 margin: 0;
+                width: 70%
             }
             .component-1 .journey .sliders .outer{
                 background-color: #dedede;
@@ -71,7 +78,7 @@
                 -ms-transform: translateY(20%);
                 transform: translateY(20%);
                 margin-left: 3px;
-                width: var(--co2Len);
+                width: var(--co2Len2);
                 transition: width 0.5s;
             }
             .component-1 .journey .sliders .outer .transport-inner{
@@ -81,7 +88,7 @@
                 -ms-transform: translateY(20%);
                 transform: translateY(20%);
                 margin-left: 3px;
-                width: var(--transLen);
+                width: var(--transLen2);
                 transition: width 0.5s;
             }
             .component-1 .journey .sliders .outer .water-inner{
@@ -91,7 +98,7 @@
                 -ms-transform: translateY(20%);
                 transform: translateY(20%);
                 margin-left: 3px;
-                width: var(--waterLen);
+                width: var(--waterLen2);
                 transition: width 0.5s;
             }
             .component-1 .journey .sliders .outer .co2-inner p, .transport-inner p, .water-inner p{
@@ -109,15 +116,73 @@
                 float: right;
             }
             .component-2 h1{
-                margin: 0 10%;
+                margin-right: 10%;
+                margin-bottom: 10px;
             }
-            .component-2 .sliders{
-                margin-left: 10%;
+            .component-2 .endstep .text{
+                margin: 10px 0;
+                height: auto;
+                width: 100%;
+            }
+            .component-2 .endstep h2{
+                margin: 10px 0;
+            }
+            .component-2 .endstep .sliders{
+                margin: 0%;
+                width: 100%;
+            }
+            .component-2 .endstep .sliders .outer{
+                background-color: #dedede;
+                border-radius: 25.5px;
+                margin-bottom: 5px;
+                margin-right: 5%;
+                height: 25px;
+                width: 80%;
+                align-content: center;
+            }
+            .component-2 .endstep .sliders .outer .co2-inner{
+                background-color: #6d7132;   
+                border-radius: 25.5px;
+                height: 70%;
+                -ms-transform: translateY(20%);
+                transform: translateY(20%);
+                margin-left: 3px;
+                width: var(--co2Len);
+                transition: width 0.5s;
+            }
+            .component-2 .endstep .sliders .outer .transport-inner{
+                background-color: #b6511d;   
+                border-radius: 25.5px;
+                height: 70%;
+                -ms-transform: translateY(20%);
+                transform: translateY(20%);
+                margin-left: 3px;
+                width: var(--transLen);
+                transition: width 0.5s;
+            }
+            .component-2 .endstep .sliders .outer .water-inner{
+                background-color: #7ba3b3;
+                border-radius: 25.5px;
+                height: 70%;
+                -ms-transform: translateY(20%);
+                transform: translateY(20%);
+                margin-left: 3px;
+                width: var(--waterLen);
+                transition: width 0.5s;
+            }
+            .component-2 .endstep .sliders .outer .co2-inner p, .transport-inner p, .water-inner p{
+                color:#dedede;
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
             }
             
         </style>
     </head>
-    <body onload="con() && fetchEverything() && startValues()">
+    <body onload="getData()">
         <div class="hero">
 
             <div class="component-1">
@@ -126,28 +191,28 @@
                 </h1>
                 <div class="journey">
                     <div class="icons">
-                        <div onclick="cssVar('--co2Len', `${CO2[0]}`) && cssVar('--transLen', `${transport[0]}`) && cssVar('--waterLen', `${water[0]}`) && changeDesc('journey-header', `${headers[0]}`) && changeDesc('journey-desc', `${descs[0]}`)">
+                        <div onclick="cssVar('--co2Len', `${CO2[0]}%`) && cssVar('--transLen', `${transport[0]}%`) && cssVar('--waterLen', `${water[0]}%`) && changeDesc('journey-header', `${headers[0]}`) && changeDesc('journey-desc', `${descs[0]}`)">
                             <img src=".\img\Water Bottle.png" alt="Plastic Bottle">
                         </div>
-                        <div onclick="cssVar('--co2Len', `${CO2[1]}`) && cssVar('--transLen', `${transport[1]}`) && cssVar('--waterLen', `${water[1]}`) && changeDesc('journey-header', `${headers[1]}`) && changeDesc('journey-desc', `${descs[1]}`)">
+                        <div onclick="cssVar('--co2Len', `${CO2[1]}%`) && cssVar('--transLen', `${transport[1]}%`) && cssVar('--waterLen', `${water[1]}%`) && changeDesc('journey-header', `${headers[1]}`) && changeDesc('journey-desc', `${descs[1]}`)">
                             <img src=".\img\Micro Plastic.png" alt="Plastic Granulate">
                         </div>
-                        <div onclick="cssVar('--co2Len', `${CO2[2]}`) && cssVar('--transLen', `${transport[2]}`) && cssVar('--waterLen', `${water[2]}`) && changeDesc('journey-header', `${headers[2]}`) && changeDesc('journey-desc', `${descs[2]}`)">
+                        <div onclick="cssVar('--co2Len', `${CO2[2]}%`) && cssVar('--transLen', `${transport[2]}%`) && cssVar('--waterLen', `${water[2]}%`) && changeDesc('journey-header', `${headers[2]}`) && changeDesc('journey-desc', `${descs[2]}`)">
                             <img src=".\img\Fabrik.png" alt="Factory">
                         </div>
-                        <div onclick="cssVar('--co2Len', `${CO2[3]}`) && cssVar('--transLen', `${transport[3]}`) && cssVar('--waterLen', `${water[3]}`) && changeDesc('journey-header', `${headers[3]}`) && changeDesc('journey-desc', `${descs[3]}`)">
+                        <div onclick="cssVar('--co2Len', `${CO2[3]}%`) && cssVar('--transLen', `${transport[3]}%`) && cssVar('--waterLen', `${water[3]}%`) && changeDesc('journey-header', `${headers[3]}`) && changeDesc('journey-desc', `${descs[3]}`)">
                             <img src=".\img\T-shirt.png" alt="T-shirt">
                         </div>
-                        <div onclick="cssVar('--co2Len', `${CO2[4]}`) && cssVar('--transLen', `${transport[4]}`) && cssVar('--waterLen', `${water[4]}`) && changeDesc('journey-header', `${headers[4]}`) && changeDesc('journey-desc', `${descs[4]}`)">
+                        <div onclick="cssVar('--co2Len', `${CO2[4]}%`) && cssVar('--transLen', `${transport[4]}%`) && cssVar('--waterLen', `${water[4]}%`) && changeDesc('journey-header', `${headers[4]}`) && changeDesc('journey-desc', `${descs[4]}`)">
                             <img src=".\img\Train.png" alt="Interstate Transport">
                         </div>
-                        <div onclick="cssVar('--co2Len', `${CO2[5]}`) && cssVar('--transLen', `${transport[5]}`) && cssVar('--waterLen', `${water[5]}`) && changeDesc('journey-header', `${headers[5]}`) && changeDesc('journey-desc', `${descs[5]}`)">
+                        <div onclick="cssVar('--co2Len', `${CO2[5]}%`) && cssVar('--transLen', `${transport[5]}%`) && cssVar('--waterLen', `${water[5]}%`) && changeDesc('journey-header', `${headers[5]}`) && changeDesc('journey-desc', `${descs[5]}`)">
                             <img src=".\img\Transport.png" alt="Transport">
                         </div>
                     </div>
                     <div class="text">
-                        <h2 id="journey-header"></h2>
-                        <p id="journey-desc"></p>
+                        <h2 id="journey-header"> Header goes here </h2>
+                        <p id="journey-desc"> Description of step </p>
                     </div>
                     <div class="sliders">
                         <div class="outer">
@@ -164,8 +229,23 @@
             </div>
             <div class="component-2">
                 <h1>Component 2:<br>Overview of total consumption, with "read more" pop-up explaining calculations</h1>
-                <div class="sliders">
-
+                <div class="endstep">
+                    <div class="text">
+                        <h2 id="product-name"> Product </h2>
+                    </div>
+                    <div class="sliders">
+                        <div class="sliders">
+                            <div class="outer">
+                                <div class="co2-inner"><p>CO2</script></p></div>
+                            </div>
+                            <div class="outer">
+                                <div class="transport-inner"><p>Transport</p></div>
+                            </div>
+                            <div class="outer">
+                                <div class="water-inner"><p>Water</p></div>
+                            </div>
+                        </div>
+                    </div>
                     <a href="" onclick="openPopup('popup.html')">See calculations</a>
                 </div>
                 
@@ -174,10 +254,9 @@
 
         <!-- fun stuff :) -->
         <script>
-
             // product related info
             var productName = 'Kortærmet T-shirt | Black/Royal Blue';
-            var productType, productId;
+            var productType;
             var avgCO2, avgTransport, avgWater;
             var CO2 = [0,0,0,0,0,0];
             var transport = [0,0,0,0,0,0];
@@ -185,70 +264,82 @@
             var headers = ['','','','','',''];
             var descs = ['','','','','',''];
 
-            // get product data and calc pcts
-            function fetchEverything(){
-                // product and type
-                connection.query(`SELECT * FROM products WHERE name = \'${productName}\'`, (err, rows) => {
-                    if(err) throw err;
-                    rows.forEach((r) => {
-                        productType = rows.productType;
-                        productId = rows.id;
-                    });
-                });
-                // avg vals for product type
-                connection.query(`SELECT * FROM averages WHERE productType =\'${productType}\'`, (err, rows) =>{
-                    avgCO2 = rows.CO2;
-                    avgTransport = rows.transport;
-                    avgWater = rows.water;
-                });
-                // step vals
-                for (var i = 0; i < 6; i++) {
-                    connection.query(`SELECT * FROM stepValues WHERE productId = \'${productId}\' AND stepNum = \'${i+1}\'`, (err, rows) =>{
-                        CO2[i] = rows.CO2;
-                        transport[i] = rows.transport;
-                        water[i] = rows.water;
-                    });
-                }
-                /// calcs
-                // sum steps
-                for(i = 0; i < 6; i++){
-                    for(j = 0; j < i; j++){
-                        CO2[i] += CO2[j];
-                        transport[i] += transport[j];
-                        water[i] += transport[j];
+            async function getData(){
+                // yoink all data
+                const productResponse = await fetch('/api/clothing/productList');
+                const productData = await productResponse.json();
+                const avgResponse = await fetch('/api/clothing/avgList');
+                const avgData = await avgResponse.json();
+                const stepResponse = await fetch('/api/clothing/stepList');
+                const stepData = await stepResponse.json();
+
+                // find our desired product and its types
+                productData.forEach(elem => {
+                    if(elem.name == productName){
+                        productType = elem.type
                     }
+                });
+
+                // get averages for the given producttype
+                avgData.forEach(elem => {
+                    if(elem.type == productType){
+                        avgCO2 = Number(elem.impact.lst[0]);
+                        avgTransport = Number(elem.impact.lst[1]);
+                        avgWater = Number(elem.impact.lst[2]);
+                    }
+                });
+
+                //get step data and put in arrays
+                stepData.forEach(elem => {
+                    if(elem.name == productName){
+                        CO2[elem.num-1] = Number(elem.impact.lst[0]);
+                        transport[elem.num-1] = Number(elem.impact.lst[1]);
+                        water[elem.num-1] = Number(elem.impact.lst[2]);
+                        headers[elem.num-1] = elem.desc.header;
+                        descs[elem.num-1] = elem.desc.desc;
+                    }
+                });
+
+                // cumulatively add numbers from steps
+                for(i = 1; i < 6; i++){
+                    CO2[i] += CO2[i-1];
+                    transport[i] += transport[i-1];
+                    water[i] += water[i-1];
                 }
-                // calc pct
+
+                // convert step values to pct
                 for(i = 0; i < 6; i++){
                     CO2[i] = CO2[i] * 100 / avgCO2;
                     transport[i] = transport[i] * 100 / avgTransport;
                     water[i] = water[i] * 100 / avgWater;
                 }
                 
-                // step descs
-                for (var i = 0; i < 6; i++) {
-                    connection.query(`SELECT * FROM stepDescriptions WHERE productId = \'${productId}\' AND stepNum = \'${i+1}\'`, (err, rows) =>{
-                        headers[i] = rows.header;
-                        descs[i] = rows.descr;
-                    });
-                }
+                startValues();
             }
-
-            // start everything at last step
+            
             function startValues(){
-                cssVar('--co2Len', `${CO2[5]}`)
-                cssVar('--transLen', `${transport[5]}`)
-                cssVar('--waterLen', `${water[5]}`)
+                // component 1
+                cssVar('--co2Len', `${CO2[5]}%`)
+                cssVar('--transLen', `${transport[5]}%`)
+                cssVar('--waterLen', `${water[5]}%`)
                 changeDesc('journey-header', `${headers[5]}`)
                 changeDesc('journey-desc', `${descs[5]}`)
+                
+                //component 2
+                changeDesc('product-name', productName)
+                cssVar('--co2Len2', `${CO2[5]}%`)
+                cssVar('--transLen2', `${transport[5]}%`)
+                cssVar('--waterLen2', `${water[5]}%`)
             }
 
             function changeDesc(elem, newText){
                 document.getElementById(elem).innerText = newText;
+                return 1; //for && chaining (this caused me a lot of frustration so don't be a dummy and rm it)
             }
+            
 
             function openPopup(url){
-                window.focus(open(url,'About the product','height=135,width=400'));
+                window.focus(open(url,'About the product','height=150,width=400'));
             }
 
             function cssVar(name,value){

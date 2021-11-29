@@ -50,7 +50,7 @@
             }
         </style>
     </head>
-    <body onload="con() && fetchEverything() && putValues()">
+    <body onload="getData()">
         <div class="hero">
             <table>
                 <tr>
@@ -89,60 +89,74 @@
 
             // product related info
             var productName = 'Kortærmet T-shirt | Black/Royal Blue';
-            var productType, productId;
+            var productType;
             var avgCO2, avgTransport, avgWater;
             var CO2 = [0,0,0,0,0,0];
             var transport = [0,0,0,0,0,0];
             var water = [0,0,0,0,0,0];
-            var CO2_lit, transport_lit, water_lit;
-            /*
-            // get product data and calc pcts
-            function fetchEverything(){
-                // product and type
-                connection.query(`SELECT * FROM products WHERE name = \'${productName}\'`, (err, rows) => {
-                    if(err) throw err;
-                    rows.forEach((r) => {
-                        productType = rows.productType;
-                        productId = rows.id;
-                    });
-                });
-                // avg vals for product type
-                connection.query(`SELECT * FROM averages WHERE productType =\'${productType}\'`, (err, rows) =>{
-                    avgCO2 = rows.CO2;
-                    avgTransport = rows.transport;
-                    avgWater = rows.water;
-                });
-                // step vals
-                for (var i = 0; i < 6; i++) {
-                    connection.query(`SELECT * FROM stepValues WHERE productId = \'${productId}\' AND stepNum = \'${i+1}\'`, (err, rows) =>{
-                        CO2[i] = rows.CO2;
-                        transport[i] = rows.transport;
-                        water[i] = rows.water;
-                    });
-                }
-                /// calcs
-                // sum steps
-                for(i = 0; i < 6; i++){
-                    for(j = 0; j < i; j++){
-                        CO2[i] += CO2[j];
-                        transport[i] += transport[j];
-                        water[i] += transport[j];
-                    }
-                }
-                CO2_lit = CO2[5]; transport_lit = transport[5]; water_lit = water[5];
+            var headers = ['','','','','',''];
+            var descs = ['','','','','',''];
 
-                // calc pct
+            async function getData(){
+                // yoink all data
+                const productResponse = await fetch('/api/clothing/productList');
+                const productData = await productResponse.json();
+                const avgResponse = await fetch('/api/clothing/avgList');
+                const avgData = await avgResponse.json();
+                const stepResponse = await fetch('/api/clothing/stepList');
+                const stepData = await stepResponse.json();
+
+                // find our desired product and its types
+                productData.forEach(elem => {
+                    if(elem.name == productName){
+                        productType = elem.type
+                    }
+                });
+
+                // get averages for the given producttype
+                avgData.forEach(elem => {
+                    if(elem.type == productType){
+                        avgCO2 = Number(elem.impact.lst[0]);
+                        avgTransport = Number(elem.impact.lst[1]);
+                        avgWater = Number(elem.impact.lst[2]);
+                    }
+                });
+
+                //get step data and put in arrays
+                stepData.forEach(elem => {
+                    if(elem.name == productName){
+                        CO2[elem.num-1] = Number(elem.impact.lst[0]);
+                        transport[elem.num-1] = Number(elem.impact.lst[1]);
+                        water[elem.num-1] = Number(elem.impact.lst[2]);
+                        headers[elem.num-1] = elem.desc.header;
+                        descs[elem.num-1] = elem.desc.desc;
+                    }
+                });
+
+                // cumulatively add numbers from steps
+                for(i = 1; i < 6; i++){
+                    CO2[i] += CO2[i-1];
+                    transport[i] += transport[i-1];
+                    water[i] += water[i-1];
+                }
+
+                CO2_lit = CO2[5];
+                transport_lit = transport[5];
+                water_lit = water[5];
+
+                // convert step values to pct
                 for(i = 0; i < 6; i++){
                     CO2[i] = CO2[i] * 100 / avgCO2;
                     transport[i] = transport[i] * 100 / avgTransport;
                     water[i] = water[i] * 100 / avgWater;
                 }
+
+                putValues();
             }
-            */
 
             function putValues(){
-                changeDesc('co2-this', CO2_lit); changeDesc('transport-this', transport_lit); changeDesc('water-this', water_lit);
-                changeDesc('co2-avg', avgCO2); changeDesc('transport-avg', avgTransport); changeDesc('water-avg', avgWater);
+                changeDesc('co2-this', CO2_lit + ' KG'); changeDesc('transport-this', transport_lit + ' KM'); changeDesc('water-this', water_lit + ' L');
+                changeDesc('co2-avg', avgCO2 + ' KG'); changeDesc('transport-avg', avgTransport + ' KM'); changeDesc('water-avg', avgWater + ' L');
                 changeDesc('co2-pct', CO2[5] + '%'); 
                 changeDesc('transport-pct', transport[5] + '%'); 
                 changeDesc('water-pct', water[5] + '%');

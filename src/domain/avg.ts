@@ -4,6 +4,6 @@ export class Avg{
 
     constructor(
         private type: string,
-        private impact: Array<Impact>,
+        private impact: Impact,
     ){}
 }
