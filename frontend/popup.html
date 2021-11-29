@@ -61,7 +61,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <img src="img\CO2 Footprint Color.png" alt="">
+                        <img src=".\img\CO2 Footprint Color.png" alt="">
                     </td>
                     <td id="co2-this"></td>
                     <td id="co2-avg"></td>
@@ -69,7 +69,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <img src="img\Transport Color.png" alt="">
+                        <img src=".\img\Transport Color.png" alt="">
                     </td>
                     <td id="transport-this"></td>
                     <td id="transport-avg"></td>
@@ -77,7 +77,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <img src="img\Water Drop Color.png" alt="">
+                        <img src=".\img\Water Drop Color.png" alt="">
                     </td>
                     <td id="water-this"></td>
                     <td id="water-avg"></td>
@@ -86,26 +86,6 @@
             </table>
         </div>
         <script>
-            function con(){
-                // FETCHING DATA
-                const mysql = require('mysql');
-                const connection = mysql.createConnection({
-                    host: 'localhost',
-                    user: 'root',
-                    password: '1234',
-                    database: 'despiteProducts'
-                });
-                connection.connect((err) => {
-                    if (err) {
-                        console.log('Error connectin to database.');
-                        return;
-                    };
-                    console.log('Connected!');
-                });
-                connection.end((err) => {
-                    // graceful teardown
-                });
-            }
 
             // product related info
             var productName = 'Kortærmet T-shirt | Black/Royal Blue';
@@ -115,6 +95,7 @@
             var transport = [0,0,0,0,0,0];
             var water = [0,0,0,0,0,0];
             var CO2_lit, transport_lit, water_lit;
+            /*
             // get product data and calc pcts
             function fetchEverything(){
                 // product and type
@@ -157,6 +138,7 @@
                     water[i] = water[i] * 100 / avgWater;
                 }
             }
+            */
 
             function putValues(){
                 changeDesc('co2-this', CO2_lit); changeDesc('transport-this', transport_lit); changeDesc('water-this', water_lit);

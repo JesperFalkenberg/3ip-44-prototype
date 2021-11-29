@@ -127,22 +127,22 @@
                 <div class="journey">
                     <div class="icons">
                         <div onclick="cssVar('--co2Len', `${CO2[0]}`) && cssVar('--transLen', `${transport[0]}`) && cssVar('--waterLen', `${water[0]}`) && changeDesc('journey-header', `${headers[0]}`) && changeDesc('journey-desc', `${descs[0]}`)">
-                            <img src="img\Water Bottle.png" alt="Plastic Bottle">
+                            <img src=".\img\Water Bottle.png" alt="Plastic Bottle">
                         </div>
                         <div onclick="cssVar('--co2Len', `${CO2[1]}`) && cssVar('--transLen', `${transport[1]}`) && cssVar('--waterLen', `${water[1]}`) && changeDesc('journey-header', `${headers[1]}`) && changeDesc('journey-desc', `${descs[1]}`)">
-                            <img src="img\Micro Plastic.png" alt="Plastic Granulate">
+                            <img src=".\img\Micro Plastic.png" alt="Plastic Granulate">
                         </div>
                         <div onclick="cssVar('--co2Len', `${CO2[2]}`) && cssVar('--transLen', `${transport[2]}`) && cssVar('--waterLen', `${water[2]}`) && changeDesc('journey-header', `${headers[2]}`) && changeDesc('journey-desc', `${descs[2]}`)">
-                            <img src="img\Fabrik.png" alt="Factory">
+                            <img src=".\img\Fabrik.png" alt="Factory">
                         </div>
                         <div onclick="cssVar('--co2Len', `${CO2[3]}`) && cssVar('--transLen', `${transport[3]}`) && cssVar('--waterLen', `${water[3]}`) && changeDesc('journey-header', `${headers[3]}`) && changeDesc('journey-desc', `${descs[3]}`)">
-                            <img src="img\T-shirt.png" alt="T-shirt">
+                            <img src=".\img\T-shirt.png" alt="T-shirt">
                         </div>
                         <div onclick="cssVar('--co2Len', `${CO2[4]}`) && cssVar('--transLen', `${transport[4]}`) && cssVar('--waterLen', `${water[4]}`) && changeDesc('journey-header', `${headers[4]}`) && changeDesc('journey-desc', `${descs[4]}`)">
-                            <img src="img\Train.png" alt="Interstate Transport">
+                            <img src=".\img\Train.png" alt="Interstate Transport">
                         </div>
                         <div onclick="cssVar('--co2Len', `${CO2[5]}`) && cssVar('--transLen', `${transport[5]}`) && cssVar('--waterLen', `${water[5]}`) && changeDesc('journey-header', `${headers[5]}`) && changeDesc('journey-desc', `${descs[5]}`)">
-                            <img src="img\Transport.png" alt="Transport">
+                            <img src=".\img\Transport.png" alt="Transport">
                         </div>
                     </div>
                     <div class="text">
@@ -174,26 +174,6 @@
 
         <!-- fun stuff :) -->
         <script>
-            function con(){
-                // FETCHING DATA
-                const mysql = require('mysql');
-                const connection = mysql.createConnection({
-                    host: 'localhost',
-                    user: 'root',
-                    password: '1234',
-                    database: 'despiteProducts'
-                });
-                connection.connect((err) => {
-                    if (err) {
-                        console.log('Error connectin to database.');
-                        return;
-                    };
-                    console.log('Connected!');
-                });
-                connection.end((err) => {
-                    // graceful teardown
-                });
-            }
 
             // product related info
             var productName = 'Kortærmet T-shirt | Black/Royal Blue';
