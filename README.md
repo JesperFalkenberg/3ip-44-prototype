@@ -6,3 +6,7 @@
 * Run `npm install` in the folder containing `package.json` (usually the root of the project)
 * To build: `npm run build` (always build before you start)
 * To start: `npm run start` (or `npm run start:dev` for watchmode while developing)
+
+# The frontend
+* Webpage with components run on `localhost:3000`
+* Data lists from repository are found on `/api/clothing` appended with their respecitve names `/avgList`, `productList` and `stepList`
