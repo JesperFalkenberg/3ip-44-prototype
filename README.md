@@ -9,4 +9,4 @@
 
 # The frontend
 * Webpage with components run on `localhost:3000`
-* Data lists from repository are found on `/api/clothing` appended with their respecitve names `/avgList`, `productList` and `stepList`
+* Data lists from repository are found on `/api/clothing` appended with their respecitve names `/avgList`, `/productList` and `/stepList`
